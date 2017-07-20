@@ -1,0 +1,8 @@
+<%= '# NOTE: Chef managed file. Manual changes will be overwritten at the next Chef run!' %>#
+#
+# CloudWatch Logs Agent configuration file: https://aws.amazon.com/documentation/cloudwatch/
+# NOTE: A running agent must be stopped and restarted for configuration changes to take effect.
+
+[general]
+state_file = <%= @cwlogs_state_file %>
+logging_config_file = <%= @cwlogs_logcfg_file %>
