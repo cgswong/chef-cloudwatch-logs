@@ -2,17 +2,23 @@
 # Cookbook:: cloudwatch-logs
 # Recipe:: install
 
-include_recipe 'cloudwatch-logs::_common'
+agent_etc_dir = "#{node['cwlogs']['agent_home']}/etc"
+aws_cfg_file = "#{agent_etc_dir}/aws.conf"
 
-# Create Agent directories even if not yet installed
-%w[node['cwlogs']['setup_home'] agent_inc_dir].each do |dir|
-  directory dir do
-    owner 'root'
-    group 'root'
-    mode '0755'
-    recursive true
-    action :create
-  end
+directory node['cwlogs']['setup_home'] do
+  owner 'root'
+  group 'root'
+  mode '0755'
+  recursive true
+  action :create
+end
+
+directory "#{agent_etc_dir}/config" do
+  owner 'root'
+  group 'root'
+  mode '0755'
+  recursive true
+  action :create
 end
 
 # Download AWS configuration file
@@ -40,12 +46,11 @@ execute 'Install CloudWatch Logs Agent' do
   command "#{node['cwlogs']['setup_home']}/awslogs-agent-setup.py \
   --non-interactive --region #{node['cwlogs']['region']} \
   --configfile #{aws_cfg_file}"
-  not_if { system 'pgrep -f aws-logs-agent-setup >/dev/null' }
 end
 
 # Restart the agent service in the end to ensure that
 # the agent will run with the custom configurations
 service 'awslogs' do
   supports :restart => true, :status => true, :start => true, :stop => true
-  action :nothing
+  action [:nothing, :enable]
 end

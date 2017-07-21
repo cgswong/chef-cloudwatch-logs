@@ -2,7 +2,11 @@
 # Cookbook:: cloudwatch-logs
 # Recipe:: config
 
-include_recipe 'cloudwatch-logs::_common'
+agent_etc_dir = "#{node['cwlogs']['agent_home']}/etc"
+agent_state_file = "#{node['cwlogs']['agent_home']}/state/agent-state"
+agent_cfg_file = "#{agent_etc_dir}/awslogs.conf"
+awslogs_file = "#{agent_etc_dir}/cwlogs.conf"
+aws_cfg_file = "#{agent_etc_dir}/aws.conf"
 
 # Always update AWS configuration file
 template aws_cfg_file do
