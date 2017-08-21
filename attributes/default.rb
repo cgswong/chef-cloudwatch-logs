@@ -7,4 +7,4 @@ default['cwlogs']['region'] = 'us-east-1'
 
 # AWS CloudWatch Logs
 default['cwlogs']['setup_home'] = '/opt/aws/cloudwatch'
-default['cwlogs']['agent_home'] = '/etc/awslogs'
+default['cwlogs']['agent_home'] = '/var/awslogs'
