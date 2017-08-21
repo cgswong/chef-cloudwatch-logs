@@ -6,7 +6,7 @@
 # found at http://inspec.io/docs/reference/resources/
 
 # Test for directories
-describe file('/var/awslogs/etc/awscli.conf') do
+describe file('/var/awslogs/etc/aws.conf') do
   it { should exist }
 end
 
