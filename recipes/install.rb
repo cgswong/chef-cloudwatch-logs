@@ -3,7 +3,7 @@
 # Recipe:: install
 
 agent_etc_dir = "#{node['cwlogs']['agent_home']}/etc"
-aws_cfg_file = "#{agent_etc_dir}/aws.conf"
+aws_cfg_file = "#{agent_etc_dir}/awscli.conf"
 
 directory node['cwlogs']['setup_home'] do
   owner 'root'
@@ -23,7 +23,7 @@ end
 
 # Download AWS configuration file
 template aws_cfg_file do
-  source 'aws.conf.erb'
+  source 'awscli.conf.erb'
   owner 'root'
   group 'root'
   mode '0644'
